@@ -7,7 +7,7 @@ var meuServidor=http.createServer(function(req,res){
     var d=new Date().toISOString().substring(0,16)
     console.log(req.method+ " "+req.url+" "+d)
     fs.readFile('pag'+pedido.substring()+'.html',function(err,data){
-        res.writeHead(200,{'Content-Type':'text/plan;charset=utf-8'});
+        res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
         var pedido=url.parse(req.url,true).pathname
         if(err){
             res.write("Erro na leitura do ficheiro: "+err)
