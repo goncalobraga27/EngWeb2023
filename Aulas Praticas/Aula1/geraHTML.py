@@ -8,8 +8,23 @@ f = open("mapa.json")
 mapa = json.load(f)
 cidades = mapa['cidades']
 ligacoes=mapa['ligações']
+cidadesplusligacoes=dict()
 
 cidades.sort(key = ordCidade)
+
+codificacao=dict()
+for l in ligacoes:
+    for c in cidades:
+        if(l["destino"]==c["id"]):
+            codificacao[l["destino"]]=c["nome"]
+
+for c in cidades:
+    cidadesplusligacoes[c["nome"]]=[]
+
+for c in cidades:
+    for l in ligacoes:
+        if c["id"]==l["origem"]:
+           cidadesplusligacoes[c["nome"]].append((codificacao[l["destino"]],l["distância"]))
 
 pagHTML = """
 <!DOCTYPE html>
@@ -26,14 +41,15 @@ pagHTML = """
         <table>
             <tr>
                 <!-- Índice-->
-                <td>
+                <td valign="top">
                     <h3>Índice</h3>
                     <ul>
 """
 for c in cidades:
-    pagHTML+="""
+    pagHTML+=f"""
     <li>
-    <a href="#{c['id']}">c['nome']</a>
+        <a href="#{c["id"]}">{c["nome"]}</a>
+    </li>
     """
 pagHTML += """
                     </ul>
@@ -45,7 +61,7 @@ pagHTML += """
 for c in cidades:
     pagHTML += f"""
     <li>
-        <a href="{c['id']}">{c['nome']}</a>
+        <a href="#{c['id']}">{c['nome']}</a>
     </li>
     """
     pagHTML += f"""
@@ -55,19 +71,14 @@ for c in cidades:
                         <p><b>Descrição</b>{c['descrição']}</p>
                         <p><b>Distrito</b>{c['distrito']}</p>
     """
-for c in cidades:
-    for l in ligacoes:
-        if l['origem'] == c['id']:
-            pagHTML+= f"""
-                        <a name="{c['id']}"/>
-                        <h3>Ligações</h3>
-                        <p><b>Destino</b>{l['destino']}</p>
-                        <p><b>Distância</b>{l['distância']}</p>
-                        <address><address/>
-                        <center>
-                            <hr width="80%"/>
-                        </center>
-            """
+    pagHTML+="""
+    <h3>Ligações</h3>
+    """
+    listaLigacoes=cidadesplusligacoes[c["nome"]]
+    for par in listaLigacoes:
+        pagHTML+=f"""
+                    <p><b>Destino:</b>{par[0]}<b> Distância:</b>{par[1]}</p>
+        """
 
 pagHTML += """
                 </td>
