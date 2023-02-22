@@ -30,6 +30,11 @@ pagHTML = """
                     <h3>Índice</h3>
                     <ul>
 """
+for c in cidades:
+    pagHTML+="""
+    <li>
+    <a href="#{c['id']}">c['nome']</a>
+    """
 pagHTML += """
                     </ul>
                 </td>
