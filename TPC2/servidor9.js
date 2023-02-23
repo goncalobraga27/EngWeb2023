@@ -6,24 +6,38 @@ var meuServidor=http.createServer(function(req,res){
     var pedido=url.parse(req.url,true).pathname
     var d=new Date().toISOString().substring(0,16)
     console.log(req.method+ " "+req.url+" "+d)
-    fs.readFile('pag'+pedido.substring()+'.html',function(err,data){
-        res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
-        var pedido=url.parse(req.url,true).pathname
-        if(err){
-            res.write("Erro na leitura do ficheiro: "+err)
-        }
-        else {
-            res.write(data)
-        }
+    if(req.url == "/"){
+        fs.readFile('index.html',function(err,data){
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
+            if(err){
+                res.write("Erro na leitura do ficheiro: "+err)
+            }
+            else {
+                res.write(data)
+            }
 
-        res.end()
-    })
+            res.end()
+        })
+    }
+    else {
+        fs.readFile(pedido.substring(1)+'.html',function(err,data){
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
+            if(err){
+                res.write("Erro na leitura do ficheiro: "+err)
+            }
+            else {
+                res.write(data)
+            }
+
+            res.end()
+        })
+    }
     
 
 
 })
-meuServidor.listen(7778);
-console.log("Servidor à escuta na porta 7778...")
+meuServidor.listen(7779);
+console.log("Servidor à escuta na porta 7779...")
 
 /* 
 Node.js -> Aguenta com muito mais clientes do que o php 
