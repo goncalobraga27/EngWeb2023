@@ -1,0 +1,23 @@
+{
+    "alunos":[{
+        "id":"A12345",
+        "nome":"Ana Dias"
+    },{
+        "id":"A4328",
+        "nome":"Paulo Domingues"
+    },{
+        "id":"A12346",
+        "nome":"Ezequiel Lavezzi"
+    }],
+    "docentes":[{
+        "id":"D1",
+        "nome":"jcr"
+    },{
+        "id":"D2",
+        "nome":"prh"
+    },{
+        "id":"D3",
+        "nome":"jj"
+    }]
+    
+}
