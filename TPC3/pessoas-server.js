@@ -42,6 +42,24 @@ function searchDesportos(pessoas){
     return desportos;
 
 }
+function searchProfissoes(pessoas){
+    const profissoes = new Map()
+    for(let i = 0;i < pessoas.length;i++){
+        const pessoa=pessoas[i];
+        if (profissoes.has(pessoa.profissao)){
+            const listaPessoas=profissoes.get(pessoa.profissao);
+            listaPessoas.push(pessoa);
+            profissoes.set(pessoa.profissao,listaPessoas);
+        }
+        else {
+            const listaPessoas=[pessoa]
+            profissoes.set(pessoa.profissao,listaPessoas);
+        }
+    
+    }
+    return profissoes;
+}
+
 var meuServidor=http.createServer(function(req,res){
     var d=new Date().toISOString().substring(0,16)
     console.log(req.method+ " "+req.url+" "+d)
@@ -124,6 +142,21 @@ var meuServidor=http.createServer(function(req,res){
             let desportistas = searchDesportos(pessoas)
             res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
             res.end(mypages.genDesportoPage(desportistas,d))
+        })
+        .catch(erro => {
+            console.log("Erro: "+ erro)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end("<p>ERRO:  "+ erro+" </p>")
+        })
+    }
+    else if (req.url == "/profissao"){
+        axios.get('http://localhost:3000/pessoas')
+        .then(function(resp){
+            var pessoas = resp.data
+            let profissoes = searchProfissoes(pessoas)
+            const profissoesSorted = new Map([...profissoes.entries()].sort((a, b) => b[1].length - a[1].length));
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end(mypages.genProfissaoPage(profissoesSorted,d))
         })
         .catch(erro => {
             console.log("Erro: "+ erro)
