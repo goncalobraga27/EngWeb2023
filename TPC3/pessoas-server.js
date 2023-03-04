@@ -3,6 +3,7 @@ var axios=require('axios')
 var mypages=require('./mypages')
 var fs = require('fs')
 
+
 function searchFeminino(pessoas){
     const mulheres=[];
     for(let i = 0;i < pessoas.length;i++){
@@ -58,6 +59,15 @@ function searchProfissoes(pessoas){
     
     }
     return profissoes;
+}
+function searchPessoasWithProf(pessoas,profFirst,profSecond){
+    const pessoasProf=[]
+    for (let i = 0;i<pessoas.length;i++){
+        if (pessoas[i].profissao.slice(0,3)==profFirst && pessoas[i].profissao.slice(pessoas[i].profissao.length-3,pessoas[i].profissao.length-1)==profSecond){
+            pessoasProf.push(pessoas[i])
+        }
+    }
+    return pessoasProf;
 }
 
 var meuServidor=http.createServer(function(req,res){
@@ -157,6 +167,23 @@ var meuServidor=http.createServer(function(req,res){
             const profissoesSorted = new Map([...profissoes.entries()].sort((a, b) => b[1].length - a[1].length));
             res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
             res.end(mypages.genProfissaoPage(profissoesSorted,d))
+        })
+        .catch(erro => {
+            console.log("Erro: "+ erro)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end("<p>ERRO:  "+ erro+" </p>")
+        })
+    }
+    else if(req.url.match(/profissao\/\w+/)){ // expressão regular 
+        prof=req.url.substring(11)
+        profFirst=prof.slice(0,3)
+        profSecond=prof.slice((prof.length)-3,(prof.length)-1)
+        axios.get('http://localhost:3000/pessoas')
+        .then(function(resp){
+            var pessoasComTrabalho = resp.data
+            let pessoasProf=searchPessoasWithProf(pessoasComTrabalho,profFirst,profSecond)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end(mypages.pessoasPage(pessoasProf,d))
         })
         .catch(erro => {
             console.log("Erro: "+ erro)
