@@ -69,6 +69,17 @@ function searchPessoasWithProf(pessoas,profFirst,profSecond){
     }
     return pessoasProf;
 }
+function searchPessoasWithDesp(pessoas,despFirst,despSecond){
+    const pessoasDesp=[]
+    for (let i = 0;i<pessoas.length;i++){
+        for (let k=0;k<pessoas[i].desportos.length;k++){
+            if (pessoas[i].desportos[k][0]==despFirst && pessoas[i].desportos[k].slice(pessoas[i].desportos[k].length-4,pessoas[i].desportos[k].length-2)==despSecond){
+                pessoasDesp.push(pessoas[i])
+            }
+        }
+    }
+    return pessoasDesp;
+}
 
 var meuServidor=http.createServer(function(req,res){
     var d=new Date().toISOString().substring(0,16)
@@ -131,6 +142,19 @@ var meuServidor=http.createServer(function(req,res){
             res.end()
         })
     }
+    else if (req.url == "/sexo/w3.css"){
+        fs.readFile('w3.css',function(err,data){
+            res.writeHead(200,{'Content-Type':'text/css'});
+            if(err){
+                res.write("Erro na leitura do ficheiro: "+err)
+            }
+            else {
+                res.write(data)
+            }
+
+            res.end()
+        })
+    }
     else if (req.url == "/sexo"){
         axios.get('http://localhost:3000/pessoas')
         .then(function(resp){
@@ -138,20 +162,79 @@ var meuServidor=http.createServer(function(req,res){
             let sexoFeminino = searchFeminino(pessoas)
             let sexoMasculino = searchMasculino(pessoas)
             res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
-            res.end(mypages.genSexoPage(sexoFeminino,sexoMasculino,d))
+            res.end(mypages.genSexoPage(sexoFeminino.length,sexoMasculino.length,d))
         })
         .catch(erro => {
             console.log("Erro: "+ erro)
             res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
             res.end("<p>ERRO:  "+ erro+" </p>")
         })
-    }else if (req.url == "/desportos"){
+    }
+    else if (req.url =="/sexo/masculino"){
+        axios.get('http://localhost:3000/pessoas')
+        .then(function(resp){
+            var pessoas = resp.data
+            let sexoMasculino = searchMasculino(pessoas)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end(mypages.genHomensPage(sexoMasculino,d))
+        })
+        .catch(erro => {
+            console.log("Erro: "+ erro)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end("<p>ERRO:  "+ erro+" </p>")
+        })
+    }
+    else if (req.url =="/sexo/feminino"){
+        axios.get('http://localhost:3000/pessoas')
+        .then(function(resp){
+            var pessoas = resp.data
+            let sexoFeminino = searchFeminino(pessoas)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end(mypages.genMulheresPage(sexoFeminino,d))
+        })
+        .catch(erro => {
+            console.log("Erro: "+ erro)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end("<p>ERRO:  "+ erro+" </p>")
+        })
+    }
+    else if (req.url == "/desportos"){
         axios.get('http://localhost:3000/pessoas')
         .then(function(resp){
             var pessoas = resp.data
             let desportistas = searchDesportos(pessoas)
             res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
             res.end(mypages.genDesportoPage(desportistas,d))
+        })
+        .catch(erro => {
+            console.log("Erro: "+ erro)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end("<p>ERRO:  "+ erro+" </p>")
+        })
+    }
+    else if (req.url == "/desportos/w3.css"){
+        fs.readFile('w3.css',function(err,data){
+            res.writeHead(200,{'Content-Type':'text/css'});
+            if(err){
+                res.write("Erro na leitura do ficheiro: "+err)
+            }
+            else {
+                res.write(data)
+            }
+
+            res.end()
+        })
+    }
+    else if(req.url.match(/desportos\/[a-zA-Z0-9\s\ç\ó\é\á\ã\á\-\í\â]+/)){
+        desp=req.url.substring(11)
+        despFirst=desp[0]
+        despSecond=desp.slice((desp.length)-4,(desp.length)-2)
+        axios.get('http://localhost:3000/pessoas')
+        .then(function(resp){
+            var pessoasDesportistas = resp.data
+            let pessoasDesp=searchPessoasWithDesp(pessoasDesportistas,despFirst,despSecond)
+            res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
+            res.end(mypages.pessoasDespPage(pessoasDesp,d))
         })
         .catch(erro => {
             console.log("Erro: "+ erro)
@@ -172,6 +255,19 @@ var meuServidor=http.createServer(function(req,res){
             console.log("Erro: "+ erro)
             res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
             res.end("<p>ERRO:  "+ erro+" </p>")
+        })
+    }
+    else if (req.url == "/profissao/w3.css"){
+        fs.readFile('w3.css',function(err,data){
+            res.writeHead(200,{'Content-Type':'text/css'});
+            if(err){
+                res.write("Erro na leitura do ficheiro: "+err)
+            }
+            else {
+                res.write(data)
+            }
+
+            res.end()
         })
     }
     else if(req.url.match(/profissao\/\w+/)){ // expressão regular 

@@ -107,33 +107,24 @@ exports.genSexoPage=function(mulheres,homens,d){
                 <div class="w3-card-4">
 
                 <header class="w3-container w3-blue">
-                <h1>Homens(${homens.length})</h1>
+                <h1>Masculino</h1>
                 </header>
                 
             <div class="w3-container">
                 <table class="w3-table-all">
                 <tr>
-                    <th>Id</th>
-                    <th>Nome</th>
-                    <th>Idade</th>
-                    <th>Cidade</th>
+                    <th>Frequência</th>
                 </tr>`
-    for(let i=0;i<homens.length;i++){
         pagHTML +=`
                 <tr>
-                        <td>${homens[i].id}</td>
-                        <td>
-                            
-                            ${homens[i].nome}
-                        </td>
-                        <td>${homens[i].idade}</td>
-                        <td>${homens[i].sexo}</td>
-                        <td>${homens[i].morada.cidade}</td>
-                
+                    <td>
+                        <a href="http://localhost:7777/sexo/masculino">
+                        ${homens}
+                        </a>
+                    </td>
                 </tr>
         
         `
-    }
     pagHTML += `
             </table>
         </div>
@@ -142,35 +133,25 @@ exports.genSexoPage=function(mulheres,homens,d){
             <div class="w3-card-4">
 
                 <header class="w3-container w3-blue">
-                <h1>Mulheres(${mulheres.length})</h1>
+                <h1>Mulheres</h1>
                 </header>
                 
             <div class="w3-container">
                 <table class="w3-table-all">
                 <tr>
-                    <th>Id</th>
-                    <th>Nome</th>
-                    <th>Idade</th>
-                    <th>Sexo</th>
-                    <th>Cidade</th>
+                    <th>Frequência</th>
                 </tr>
 
     `
-    for(let i=0;i<mulheres.length;i++){
-        pagHTML +=`
-                <tr>
-                        <td>${mulheres[i].id}</td>
-                        <td>
-                            
-                            ${mulheres[i].nome}
-                        </td>
-                        <td>${mulheres[i].idade}</td>
-                        <td>${mulheres[i].sexo}</td>
-                        <td>${mulheres[i].morada.cidade}</td>
-                
-                </tr>     
-        `
-    }
+    pagHTML +=`
+            <tr>
+                <td>
+                <a href="http://localhost:7777/sexo/feminino">
+                ${mulheres}
+                </a>
+        </td>
+            </tr>     
+    `
     pagHTML += `
             </table>
         </div>
@@ -204,34 +185,25 @@ exports.genDesportoPage=function(desportistas,d){
             <div class="w3-card-4">
 
             <header class="w3-container w3-blue">
-            <h1>${key}(${value.length})</h1>
+            <h1>${key}</h1>
             </header>
             <div class="w3-container">
             <table class="w3-table-all">
             <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Sexo</th>
-                <th>Cidade</th>
+                <th>Frequência</th>
             </tr>
             `
-            for(let i=0;i<value.length;i++){
-                pagHTML +=`
-                        <tr>
-                                <td>${value[i].id}</td>
-                                <td>
-                                    
-                                    ${value[i].nome}
-                                </td>
-                                <td>${value[i].idade}</td>
-                                <td>${value[i].sexo}</td>
-                                <td>${value[i].morada.cidade}</td>
-                        
-                        </tr>
-                
-                `
-            }
+            pagHTML +=`
+                    <tr>
+                        <td>
+                            <a href="http://localhost:7777/desportos/${key}">
+                            ${value.length}
+                            </a>
+                        </td>
+                    </tr>
+            
+            `
+
             pagHTML += `
                     </table>
                 </div>
@@ -322,6 +294,170 @@ exports.pessoasPage=function(lista,data){
 
                 <header class="w3-container w3-blue">
                 <h1>Pessoas que exercem a profissão(${lista.length})</h1>
+                </header>
+                
+            <div class="w3-container">
+                <table class="w3-table-all">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Sexo</th>
+                    <th>Cidade</th>
+                </tr>`
+    for(let i=0;i<lista.length;i++){
+        pagHTML +=`
+        <tr>
+                <td>${lista[i].id}</td>
+                <td>${lista[i].nome}</td>
+                <td>${lista[i].idade}</td>
+                <td>${lista[i].sexo}</td>
+                <td>${lista[i].morada.cidade}</td>
+           
+        </tr>
+        `
+    }
+    pagHTML+=`
+                </table>
+            </div>
+            
+            <footer class="w3-container w3-blue">
+              <h5>Generated by pessoas-server:${data}</h5>
+            </footer>
+            
+            </div>
+                
+            </body>
+        </html>
+    `
+    return pagHTML
+}
+
+exports.genHomensPage=function(lista,data){
+    var pagHTML=`
+            <!DOCTYPE html>
+            <head>
+                <meta charset= "UTF-8"/>
+                <title> About people...</title>
+                <link rel="stylesheet" href="w3.css"/>
+            </head>
+            <body>
+                <div class="w3-card-4">
+
+                <header class="w3-container w3-blue">
+                <h1>Homens</h1>
+                </header>
+                
+            <div class="w3-container">
+                <table class="w3-table-all">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Sexo</th>
+                    <th>Cidade</th>
+                </tr>`
+    for(let i=0;i<lista.length;i++){
+        pagHTML +=`
+        <tr>
+                <td>${lista[i].id}</td>
+                <td>
+                    ${lista[i].nome}
+                </td>
+                <td>${lista[i].idade}</td>
+                <td>${lista[i].sexo}</td>
+                <td>${lista[i].morada.cidade}</td>
+           
+        </tr>
+        
+        
+        `
+    }
+    pagHTML+=`
+                </table>
+            </div>
+            
+            <footer class="w3-container w3-blue">
+              <h5>Generated by pessoas-server:${data}</h5>
+            </footer>
+            
+            </div>
+                
+            </body>
+        </html>
+    `
+    return pagHTML
+}
+
+exports.genMulheresPage=function(lista,data){
+    var pagHTML=`
+            <!DOCTYPE html>
+            <head>
+                <meta charset= "UTF-8"/>
+                <title> About people...</title>
+                <link rel="stylesheet" href="w3.css"/>
+            </head>
+            <body>
+                <div class="w3-card-4">
+
+                <header class="w3-container w3-blue">
+                <h1>Mulheres</h1>
+                </header>
+                
+            <div class="w3-container">
+                <table class="w3-table-all">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Sexo</th>
+                    <th>Cidade</th>
+                </tr>`
+    for(let i=0;i<lista.length;i++){
+        pagHTML +=`
+        <tr>
+                <td>${lista[i].id}</td>
+                <td>
+                    ${lista[i].nome}
+                </td>
+                <td>${lista[i].idade}</td>
+                <td>${lista[i].sexo}</td>
+                <td>${lista[i].morada.cidade}</td>
+           
+        </tr>
+        
+        
+        `
+    }
+    pagHTML+=`
+                </table>
+            </div>
+            
+            <footer class="w3-container w3-blue">
+              <h5>Generated by pessoas-server:${data}</h5>
+            </footer>
+            
+            </div>
+                
+            </body>
+        </html>
+    `
+    return pagHTML
+}
+
+exports.pessoasDespPage=function(lista,data){
+    var pagHTML=`
+            <!DOCTYPE html>
+            <head>
+                <meta charset= "UTF-8"/>
+                <title> About people...</title>
+                <link rel="stylesheet" href="w3.css"/>
+            </head>
+            <body>
+                <div class="w3-card-4">
+
+                <header class="w3-container w3-blue">
+                <h1>Pessoas que praticam o desporto(${lista.length})</h1>
                 </header>
                 
             <div class="w3-container">
