@@ -1,34 +1,36 @@
 {
-    "users":[
-        {
-            "id":"BOT1",
-            "nome":"BOT1"
-        },
-        {
-            "id":"BOT2",
-            "nome":"BOT2"
-        },
-        {
-            "id":"BOT2",
-            "nome":"BOT2"
-        }
-
-    ],
-    "tasks":[
-        {
-            "deadline":"20/1/2024",
-            "who":"BOT1",
-            "what":"Homework"
-        },
-        {
-            "deadline":"10/3/2023",
-            "who":"BOT2",
-            "what":"Clean the bedroom"
-        },
-        {
-            "deadline":"15/3/2023",
-            "who":"BOT3",
-            "what":"Homework"
-        }
-    ]
+  "users": [
+    {
+      "id": "BOT1",
+      "nome": "BOT1"
+    },
+    {
+      "id": "BOT2",
+      "nome": "BOT2"
+    },
+    {
+      "id": "BOT2",
+      "nome": "BOT2"
+    }
+  ],
+  "tasks": [
+    {
+      "deadline": "20/1/2024",
+      "who": "BOT1",
+      "what": "Homework",
+      "done": "0"
+    },
+    {
+      "deadline": "10/3/2023",
+      "who": "BOT2",
+      "what": "Clean the bedroom",
+      "done": "0"
+    },
+    {
+      "deadline": "15/3/2023",
+      "who": "BOT3",
+      "what": "Homework",
+      "done": "0"
+    }
+  ]
 }
