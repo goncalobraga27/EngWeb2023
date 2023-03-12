@@ -11,6 +11,10 @@
     {
       "id": "BOT2",
       "nome": "BOT2"
+    },
+    {
+      "id": "56466",
+      "nome": "Ronaldo Braga"
     }
   ],
   "tasks": [
@@ -19,20 +23,27 @@
       "deadline": "19/1/2024",
       "who": "BOT2",
       "what": "Clean the beedroom",
-      "done": "0"
+      "done": "1"
     },
     {
       "id": "2",
       "deadline": "10/3/2023",
       "who": "BOT2",
       "what": "Clean the bedroom",
-      "done": "0"
+      "done": "1"
     },
     {
       "id": "3",
       "deadline": "15/3/2023",
       "who": "BOT3",
       "what": "Homework",
+      "done": "0"
+    },
+    {
+      "id": "23",
+      "deadline": "19/1/23",
+      "who": "BOT2",
+      "what": "Clean the beedroom",
       "done": "0"
     }
   ]

@@ -35,13 +35,38 @@ var server = http.createServer(function (req, res) {
             case "GET":
                 // GET /users/register -------------------------------------------------
                 if(req.url == "/users/register"){
-                    // Add code to render page with the student form
-                    res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                    // res.write(studentFormPage(d))
-                    res.end(templates.userPage(d))
+                    axios.get("http://localhost:3000/tasks")
+                    .then(response => {
+                        var tasks = response.data
+                        // Render page with the student's list
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write(templates.mainPage(null,tasks))
+                        res.end()
+                    })
+                    .catch(function(erro){
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write("<p>Não foi possível obter a lista de alunos... Erro: " + erro)
+                        res.end()
+                    })
+                }
+                // GET /tasks/register -------------------------------------------------
+                if(req.url == "/tasks/register"){
+                    axios.get("http://localhost:3000/tasks")
+                    .then(response => {
+                        var tasks = response.data
+                        // Render page with the student's list
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write(templates.mainPage(null,tasks))
+                        res.end()
+                    })
+                    .catch(function(erro){
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write("<p>Não foi possível obter a lista de alunos... Erro: " + erro)
+                        res.end()
+                    })
                 }
                 // GET /tasks ----------------------------------------------------------
-                if(req.url == "/tasks"){
+                else if(req.url == "/tasks"){
                     axios.get("http://localhost:3000/tasks")
                         .then(response => {
                             var tasks = response.data
@@ -92,10 +117,54 @@ var server = http.createServer(function (req, res) {
                 }
               break
             case "POST":
+                // POST /users/register ----------------------------------------------------------
                 if(req.url == '/users/register'){
-                    res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                    res.write(templates.userPage(d))
-                    res.end()
+                    collectRequestBodyData(req, result => {
+                        if(result){
+                            axios.post('http://localhost:3000/users/', {
+                                "id": result.id,
+                                "nome" : result.nome
+                            })
+                                    .then(resp => {
+                                        res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                                        res.write(templates.insertUserSucessPage(result.id,result.nome,d))
+                                        res.end()
+                                    }).catch(error => {
+                                        console.log('Erro: ' + error);
+                                    })
+                        }
+                        else{
+                            res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write("<p>Unable to collect data from body...</p>")
+                            res.end()
+                        }
+                    });
+                }
+                // POST /tasks/register -------------------------------------------------------------
+                else if(req.url == '/tasks/register'){
+                    collectRequestBodyData(req, result => {
+                        if(result){
+                            axios.post('http://localhost:3000/tasks/', {
+                                "id": result.id,
+                                "deadline" : result.deadline,
+                                "who": result.who,
+                                "what" : result.what,
+                                "done": "0"
+                            })
+                                    .then(resp => {
+                                        res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                                        res.write(templates.insertTaskSucessPage(result.id,result.deadline,result.who,result.what,d))
+                                        res.end()
+                                    }).catch(error => {
+                                        console.log('Erro: ' + error);
+                                    })
+                        }
+                        else{
+                            res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write("<p>Unable to collect data from body...</p>")
+                            res.end()
+                        }
+                    });
                 }
                 // POST /tasks/edit/id ----------------------------------------------
                 else if(/\/tasks\/edit\/[0-9]+$/i.test(req.url)){
