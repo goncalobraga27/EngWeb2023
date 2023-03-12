@@ -2,6 +2,7 @@ var http = require('http')
 var axios = require('axios')
 var templates = require('./templates')
 var static = require('./static.js')
+var fs = require('fs')
 const { parse } = require('querystring');
 
 // Aux function 
@@ -32,130 +33,117 @@ var server = http.createServer(function (req, res) {
     else {
         switch(req.method){
             case "GET":
-                // GET /users --------------------------------------------------------------------
-                if((req.url == "/users")){
-                    axios.get("http://localhost:3000/users?_sort=nome")
-                        .then(response => {
-                            var users = response.data
-                            // Render page with the users list
-                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write(templates.usersTasksListPage(users,[], d))
-                            res.end()
-                        })
-                        .catch(function(erro){
-                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write("<p>Não foi possível obter a lista de users... Erro: " + erro)
-                            res.end()
-                        })
+                // GET /users/register -------------------------------------------------
+                if(req.url == "/users/register"){
+                    // Add code to render page with the student form
+                    res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                    // res.write(studentFormPage(d))
+                    res.end(templates.userPage(d))
                 }
-                // GET /users/add --------------------------------------------------------------------
-                else if((req.url == "/users/add")){
-                    axios.get("http://localhost:3000/users?id=BOT1")
-                        .then(response => {
-                            var u=response.data
-                            // Render page with the users list
-                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write(templates.userAddPage(u,d))
-                            res.end()
-                        })
-                        .catch(function(erro){
-                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write("<p>Não foi possível obter a lista de users... Erro: " + erro)
-                            res.end()
-                        })
-                }
-                // GET /tasks --------------------------------------------------------------------
-                else if((req.url == "/tasks")){
+                // GET /tasks ----------------------------------------------------------
+                if(req.url == "/tasks"){
                     axios.get("http://localhost:3000/tasks")
                         .then(response => {
                             var tasks = response.data
-                            // Render page with the users list
+                            // Render page with the student's list
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write(templates.usersTasksListPage([],tasks,d))
+                            res.write(templates.mainPage(null,tasks,d))
                             res.end()
                         })
                         .catch(function(erro){
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write("<p>Não foi possível obter a lista de users... Erro: " + erro)
+                            res.write("<p>Não foi possível obter a lista de alunos... Erro: " + erro)
                             res.end()
                         })
                 }
-                // GET /users/edit/id --------------------------------------------------------------------
-                else if(/\/users\/edit\/[a-zA-Z0-9]+$/i.test(req.url)){
-                    // get user record
-                    var idUser = req.url.split("/")[3]
-                    axios.get("http://localhost:3000/users/" + idUser)
+                // GET /tasks/edit/id --------------------------------------------------------------------
+                else if(/\/tasks\/edit\/[0-9]+$/i.test(req.url)){
+                    // get aluno record
+                    var idTask = req.url.split("/")[3]
+                    axios.get("http://localhost:3000/tasks/" + idTask)
                         .then( response => {
-                            let u = response.data
+                            let task = response.data
                             // Add code to render page with the student record
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.end(templates.userFormEditPage(u,d))
+                            res.end(templates.tasksFormEditPage(task,d))
                         })
                         .catch(function(erro){
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write(`<p>Não foi possível obter o registo do aluno${idUser}... Erro: ` + erro)
+                            res.write(`<p>Não foi possível obter o registo do aluno${idAluno}... Erro: ` + erro)
                             res.end()
                         })
                 }
-                else{
-                    res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                    res.write("<p>" + req.method + " " + req.url + " unsupported on this server.</p>")
-                    res.end()
+                // GET /tasks/done/id --------------------------------------------------------------------
+                else if(/\/tasks\/done\/[0-9]+$/i.test(req.url)){
+                    // get aluno record
+                    var idTask = req.url.split("/")[3]
+                    axios.get("http://localhost:3000/tasks/" + idTask)
+                        .then( response => {
+                            let task = response.data
+                            // Add code to render page with the student record
+                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.end(templates.tasksDoneEditPage(task,d))
+                        })
+                        .catch(function(erro){
+                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write(`<p>Não foi possível obter o registo do aluno${idAluno}... Erro: ` + erro)
+                            res.end()
+                        })
                 }
-                break
+              break
             case "POST":
-                // POST /users/edit/id -------------------------------------------------------------
-                if(/\/users\/edit\/[0-9A-Za-z]+$/i.test(req.url)){
-                    collectRequestBodyData(req, result => {
-                        if(result){
-                            axios.put('http://localhost:3000/users/'+result.id,result)
-                            .then(resp => {
-                                res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
-                                res.write('<p>Updated: '+JSON.stringify(result) +'</p>')
-                                res.end()
-                                }).catch(error => {
-                                    console.log('Erro: ' + error);
-                                    res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
-                                    res.write("<p>Unable to update user record...</p>")
-                                    res.end()
-                                })
-                        }
-                        else{
-                            res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write("<p>Unable to collect data from body...</p>")
-                            res.end()
-                        }
-                    });
-                }
-                // POST /users/add -------------------------------------------------------------
-                else if((req.url == "/users/add")){
-                    collectRequestBodyData(req, result => {
-                        if(result){
-                            axios.put('http://localhost:3000/users/'+result.id,result)
-                            .then(resp => {
-                                res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
-                                res.write('<p>Updated: '+JSON.stringify(result) +'</p>')
-                                res.end()
-                                }).catch(error => {
-                                    console.log('Erro: ' + error);
-                                    res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
-                                    res.write("<p>Unable to update user record...</p>")
-                                    res.end()
-                                })
-                        }
-                        else{
-                            res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write("<p>Unable to collect data from body...</p>")
-                            res.end()
-                        }
-                    });
-                }
-                else{
+                if(req.url == '/users/register'){
                     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                    res.write('<p>Unsupported POST request: ' + req.url + '</p>')
-                    res.write('<p><a href="/">Return</a></p>')
+                    res.write(templates.userPage(d))
                     res.end()
                 }
+                // POST /tasks/edit/id ----------------------------------------------
+                else if(/\/tasks\/edit\/[0-9]+$/i.test(req.url)){
+                    collectRequestBodyData(req, result => {
+                        if(result){
+                            axios.put('http://localhost:3000/tasks/'+result.id,result)
+                            .then(resp => {
+                                res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                                res.write(templates.editTaskConfirmPage(d))
+                                res.end()
+                                }).catch(error => {
+                                    console.log('Erro: ' + error);
+                                    res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                                    res.write("<p>Unable to update student record...</p>")
+                                    res.end()
+                                })
+                        }
+                        else{
+                            res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write("<p>Unable to collect data from body...</p>")
+                            res.end()
+                        }
+                    });
+                }
+                // POST /tasks/done/id ----------------------------------------------
+                else if(/\/tasks\/done\/[0-9]+$/i.test(req.url)){
+                    collectRequestBodyData(req, result => {
+                        if(result){
+                            axios.put('http://localhost:3000/tasks/'+result.id,result)
+                            .then(resp => {
+                                res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                                res.write(templates.doneTaskConfirmPage(d))
+                                res.end()
+                                }).catch(error => {
+                                    console.log('Erro: ' + error);
+                                    res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                                    res.write("<p>Unable to update student record...</p>")
+                                    res.end()
+                                })
+                        }
+                        else{
+                            res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write("<p>Unable to collect data from body...</p>")
+                            res.end()
+                        }
+                    });
+                }
+                
                 break
             default:
                 res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
