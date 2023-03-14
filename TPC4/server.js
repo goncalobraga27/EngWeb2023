@@ -50,7 +50,7 @@ var server = http.createServer(function (req, res) {
                     })
                 }
                 // GET /tasks/register -------------------------------------------------
-                if(req.url == "/tasks/register"){
+                else if(req.url == "/tasks/register"){
                     axios.get("http://localhost:3000/tasks")
                     .then(response => {
                         var tasks = response.data
@@ -114,6 +114,27 @@ var server = http.createServer(function (req, res) {
                             res.write(`<p>Não foi possível obter o registo do aluno${idAluno}... Erro: ` + erro)
                             res.end()
                         })
+                }
+                // GET /tasks/delete/id -------------------------------------------------------------------------
+                else if(/\/tasks\/delete\/[0-9]+$/i.test(req.url)){
+                    var idTask = req.url.split("/")[3]
+                    axios.delete("http://localhost:3000/tasks/" + idTask)
+                        .then( response => {
+                            // Add code to render page with the student record
+                            res.writeHead(201, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write(templates.deleteTaskSucessPage(idTask,d))
+                            res.end()
+                        })
+                        .catch(function(erro){
+                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write(`<p>Não foi possível apagar a task com o id ${idTask}... Erro: ` + erro)
+                            res.end()
+                        })
+                }
+                else{
+                    res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                    res.write("<p>" + req.method + " " + req.url + " unsupported on this server.</p>")
+                    res.end()
                 }
               break
             case "POST":
@@ -212,7 +233,6 @@ var server = http.createServer(function (req, res) {
                         }
                     });
                 }
-                
                 break
             default:
                 res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
