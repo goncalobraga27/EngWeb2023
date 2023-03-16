@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "id": "BOT1",
+      "nome": "BOT1"
+    },
+    {
+      "id": "BOT2",
+      "nome": "BOT2"
+    },
+    {
+      "id": "BOT2",
+      "nome": "BOT2"
+    },
+    {
+      "id": "56466",
+      "nome": "Ronaldo Braga"
+    },
+    {
+      "id": "345",
+      "nome": "ana"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "deadline": "19/1/2024",
+      "who": "BOT2",
+      "what": "Clean the beedroom",
+      "done": "1"
+    },
+    {
+      "id": "2",
+      "deadline": "10/3/2023",
+      "who": "BOT2",
+      "what": "Clean the bedroom",
+      "done": "1"
+    },
+    {
+      "id": "23",
+      "deadline": "19/1/23",
+      "who": "BOT2",
+      "what": "Clean the beedroom",
+      "done": "1"
+    },
+    {
+      "id": "5689796",
+      "deadline": "14/03/2012",
+      "who": "BOT2",
+      "what": "Play",
+      "done": "0"
+    },
+    {
+      "id": "898756",
+      "deadline": "19/1/2024",
+      "who": "BOT2",
+      "what": "Play",
+      "done": "0"
+    },
+    {
+      "id": "898566",
+      "deadline": "19/1/23",
+      "who": "BOT2",
+      "what": "See TV",
+      "done": "0"
+    }
+  ]
+}
