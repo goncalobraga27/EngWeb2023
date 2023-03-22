@@ -4,7 +4,7 @@ var Pessoa = require("../models/pessoa")
 module.exports.list = () => {
    return  Pessoa
    .find()
-   .sort({nome:-1}) // 1 descendente e -1 ascendente 
+   .sort({_id:-1}) // 1 descendente e -1 ascendente 
     .then(dados=>{
         return dados
     })
