@@ -1,0 +1,314 @@
+[{
+    "_id":"li1",
+    "designacao": "Lista de compras para o confinamento 2", 
+    "data": "2021-01-18",
+    "produtos": [
+      {
+        "id":"p1",
+        "designacao": "Courguettes",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 3 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p2",
+        "designacao": "Nabos",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 3 ",
+          "unidade": " unidade"
+        }
+
+      },
+      {
+        "id":"p3",
+        "designacao": "Cenouras",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 8 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p4",
+        "designacao": "Cebolas",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 10 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p5",
+        "designacao": "Batata",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 3 ",
+          "unidade": " Kg "
+        }
+      },
+      {
+        "id":"p6",
+        "designacao": "Laranja",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 2 ",
+          "unidade": " Kg"
+        }
+      },
+      {
+        "id":"p7",
+        "designacao": "Kiwis",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 6 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p8",
+        "designacao": "Pêras",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 5 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p9",
+        "designacao": "Diospiros",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 3 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p10",
+        "designacao": "Bananas",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 8 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p11",
+        "designacao": "Tangerinas",
+        "categoria": "Frutas e Legumes",
+        "quantidade": {
+          "valor": " 12",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p12",
+        "designacao": "Robalo",
+        "categoria": "Peixe",
+        "quantidade": {
+          "valor": " 1 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p13",
+        "designacao": "Postas de Salmão",
+        "categoria": "Peixe",
+        "quantidade": {
+          "valor": " 5 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p14",
+        "designacao": "Douradas",
+        "categoria": "Peixe",
+        "quantidade": {
+          "valor": " 2 ",
+          "unidade": " unidade"
+        }
+      },
+      {
+        "id":"p15",
+        "designacao": "Carne picada",
+        "categoria": "Carne",
+        "quantidade": {
+          "valor": " 400 ",
+          "unidade": " g "
+        }
+      },
+      {
+        "id":"p16",
+        "designacao": "Bifes de perú",
+        "categoria": "Carne",
+        "quantidade": {
+          "valor": " 600 ",
+          "unidade": " g "
+        }
+      },
+      {
+        "id":"p17",
+        "designacao": "Pá de Porco",
+        "categoria": "Carne",
+        "quantidade": {
+          "valor": " 1 ",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p18",
+        "designacao": "Óleo",
+        "categoria": "Condimentos",
+        "quantidade": {
+          "valor": " 1",
+          "unidade": " l "
+        }
+      },
+      {
+        "id":"p19",
+        "designacao": "Azeite",
+        "categoria": "Condimentos",
+        "quantidade": {
+          "valor": " 3",
+          "unidade": " l "
+        }
+      },
+      {
+        "id":"p20",
+        "designacao": "Frasco de ketchup",
+        "categoria": "Condimentos",
+        "quantidade": {
+          "valor": " 1",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p21",
+        "designacao": "Frasco de Maionese",
+        "categoria": "Condimentos",
+        "quantidade": {
+          "valor": " 1",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p22",
+        "designacao": "Broa",
+        "categoria": "Padaria",
+        "quantidade": {
+          "valor": " 500",
+          "unidade": " g "
+        }
+      },
+      {
+        "id":"p23",
+        "designacao": "Bijous",
+        "categoria": "Padaria",
+        "quantidade": {
+          "valor": " 12",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p24",
+        "designacao": "Pão da Avó",
+        "categoria": "Padaria",
+        "quantidade": {
+          "valor": " 1",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p25",
+        "designacao": "Embalagem de SKIP",
+        "categoria": "Limpeza",
+        "quantidade": {
+          "valor": " 1 ",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p26",
+        "designacao": "Detergente Lava-Tudo",
+        "categoria": "Limpeza",
+        "quantidade": {
+          "valor": " 3 ",
+          "unidade": " l "
+        }
+      },
+      {
+        "id":"p27",
+        "designacao": "Arroz",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 2 ",
+          "unidade": " Kg "
+        }
+      },
+      {
+        "id":"p28",
+        "designacao": "Arroz",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 1 ",
+          "unidade": " Kg "
+        }
+      },
+      {
+        "id":"p29",
+        "designacao": "Açúcar",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 1 ",
+          "unidade": " Kg "
+        }
+      },
+      {
+        "id":"p30",
+        "designacao": "Sal",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 0.5 ",
+          "unidade": " Kg "
+        }
+      },
+      {
+        "id":"p31",
+        "designacao": "Cardeno A4",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 2 ",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p32",
+        "designacao": "Bloco A5",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 3 ",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p33",
+        "designacao": "Lápis",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 2",
+          "unidade": " unidade "
+        }
+      },
+      {
+        "id":"p34",
+        "designacao": "Canetas",
+        "categoria": "Outros",
+        "quantidade": {
+          "valor": " 3 ",
+          "unidade": " unidade "
+        }
+      }
+    ]
+}]

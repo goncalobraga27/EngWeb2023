@@ -1,0 +1,3 @@
+$(function(){
+    $("#delProd").click()
+})
